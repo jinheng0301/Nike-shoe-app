@@ -2,6 +2,7 @@ import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:nike/utils/constants.dart';
+import 'package:nike/view/home/components/home_view.dart';
 
 class MainNavigator extends StatefulWidget {
   const MainNavigator({super.key});
@@ -11,38 +12,50 @@ class MainNavigator extends StatefulWidget {
 }
 
 class _MainNavigatorState extends State<MainNavigator> {
+  PageController _pageController = PageController();
+  int selectedIndex = 0;
+
+  List<Widget> screens = [
+    HomeView(),
+    Container(
+      color: Colors.red,
+    ),
+    Container(
+      color: Colors.yellow,
+    ),
+    Container(
+      color: Colors.deepPurpleAccent,
+    ),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+    // _pageController.jumpToPage(selectedIndex);
+
+    // this method change the screens using some smooth animations
+    _pageController.animateToPage(
+      selectedIndex,
+      curve: Curves.easeInCubic,
+      duration: Duration(milliseconds: 200),
+    );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _pageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    PageController _pageController = PageController();
-    int selectedIndex = 0;
-
-    List<Widget> _screens = [
-      Container(
-        color: Colors.red,
-      ),
-      Container(
-        color: Colors.yellow,
-      ),
-      Container(
-        color: Colors.deepPurpleAccent,
-      ),
-    ];
-
-    void _onPageChanged(int index) {
-      setState(() {
-        selectedIndex = index;
-      });
-    }
-
-    void _onItemTapped(int selectedIndex) {
-      _pageController.jumpToPage(selectedIndex);
-    }
-
     return Scaffold(
       body: PageView(
         controller: _pageController,
         physics: NeverScrollableScrollPhysics(),
-        children: _screens,
+        children: screens,
       ),
       bottomNavigationBar: CustomNavigationBar(
         currentIndex: selectedIndex,
