@@ -2,7 +2,7 @@ import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:nike/utils/constants.dart';
-import 'package:nike/view/home/components/home_view.dart';
+import 'package:nike/view/home/home_view.dart';
 
 class MainNavigator extends StatefulWidget {
   const MainNavigator({super.key});
