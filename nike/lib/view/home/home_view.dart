@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nike/data/dummy_data.dart';
+import 'package:nike/models/shoe_model.dart';
+import 'package:nike/theme/custom_app_theme.dart';
 import 'package:nike/utils/constants.dart';
 import 'package:nike/view/home/components/home_appbar.dart';
 
@@ -26,7 +28,7 @@ class _HomeViewState extends State<HomeView> {
             Column(
               children: [
                 _categoryView(size),
-                SizedBox(height: size.height * 0.04),
+                SizedBox(height: size.height * 0.01),
                 Row(
                   children: [
                     Container(
@@ -73,11 +75,58 @@ class _HomeViewState extends State<HomeView> {
                       ),
                     ),
                     Container(
-                      width: double.infinity,
-                      height: size.height * 0.3,
+                      width: size.width * 0.89,
+                      height: size.height * 0.4,
                       child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: availableShoes.length,
+                        physics: BouncingScrollPhysics(),
                         itemBuilder: (context, index) {
-                          return Container();
+                          ShoeModel model = availableShoes[index];
+                          return GestureDetector(
+                            onTap: () {
+                              // navigate to the details screen later on by tapping on these items
+                            },
+                            child: Container(
+                              margin: EdgeInsets.symmetric(
+                                vertical: size.height * 0.01,
+                                horizontal: size.width * 0.005,
+                              ),
+                              width: size.width / 1.5,
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    width: size.width / 1.81,
+                                    decoration: BoxDecoration(
+                                      color: model.modelColor,
+                                      borderRadius: BorderRadius.circular(30),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    left: 10,
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          model.name,
+                                          style: AppTheme.homeProductName,
+                                        ),
+                                        SizedBox(
+                                          width: 120,
+                                        ),
+                                        IconButton(
+                                          onPressed: () {},
+                                          icon: Icon(
+                                            Icons.favorite_border,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
                         },
                       ),
                     ),
