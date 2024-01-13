@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:nike/animation/fade_animation.dart';
 import 'package:nike/data/dummy_data.dart';
 import 'package:nike/models/shoe_model.dart';
 import 'package:nike/theme/custom_app_theme.dart';
 import 'package:nike/utils/constants.dart';
 import 'package:nike/view/home/components/home_appbar.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -104,23 +106,83 @@ class _HomeViewState extends State<HomeView> {
                                   ),
                                   Positioned(
                                     left: 10,
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          model.name,
-                                          style: AppTheme.homeProductName,
-                                        ),
-                                        SizedBox(
-                                          width: 120,
-                                        ),
-                                        IconButton(
-                                          onPressed: () {},
-                                          icon: Icon(
-                                            Icons.favorite_border,
-                                            color: Colors.white,
+                                    child: FadeAnimation(
+                                      delay: 1,
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            model.name,
+                                            style: AppTheme.homeProductName,
+                                          ),
+                                          SizedBox(
+                                            width: 120,
+                                          ),
+                                          IconButton(
+                                            onPressed: () {},
+                                            icon: Icon(
+                                              Icons.favorite_border,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top: 40,
+                                    left: 10,
+                                    child: FadeAnimation(
+                                      delay: 1.5,
+                                      child: Text(
+                                        model.model,
+                                        style: AppTheme.homeProductModel,
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top: 80,
+                                    left: 10,
+                                    child: FadeAnimation(
+                                      delay: 2,
+                                      child: Text(
+                                        '${model.price.toStringAsFixed(2)}',
+                                        style: AppTheme.homeProductPrice,
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    left: 20,
+                                    top: 50,
+                                    child: FadeAnimation(
+                                      delay: 2,
+                                      child: Hero(
+                                        tag: model.imgAddress,
+                                        child: RotationTransition(
+                                          turns: AlwaysStoppedAnimation(
+                                            -30 / 360,
+                                          ),
+                                          child: SizedBox(
+                                            width: 250,
+                                            height: 230,
+                                            child: Image(
+                                              image: AssetImage(
+                                                model.imgAddress,
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                      ],
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    bottom: 70,
+                                    left: 170,
+                                    child: IconButton(
+                                      onPressed: () {},
+                                      icon: FaIcon(
+                                        FontAwesomeIcons.circleArrowRight,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ),
                                 ],
